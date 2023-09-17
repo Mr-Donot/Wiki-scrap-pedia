@@ -27,18 +27,21 @@ class Scrapper:
 
         return "".join(tabResult)
     
-    def saveTextInFile(self, url=None):
+    def saveTextInFile(self, url=None, outputFileName = None):
         text = self.getPageTxt(url)
         if not text : return
         #TODO recup le titre de la page pour le nom du fichier
-        fileName = "data/abc.txt"
-        
+
+        if outputFileName is None : 
+            fileName = "data/abc.txt"
+        else :
+            fileName = "data/" + outputFileName + ".txt"
         with open(fileName, "w", encoding="utf-8") as file:
             # Write the text to the file
             file.write(text)
 
     
-    def saveListOfArticleInFile(self, listFileName):
+    def saveListOfArticleInFile(self, listFileName, outputFileName):
         with open(listFileName, "r", encoding="utf-8") as file:
             text = file.read().split("\n")
         
@@ -47,7 +50,7 @@ class Scrapper:
             text = self.getPageTxt(url)
             if text : globalOutput += text
 
-        fileName = "data/" + listFileName + "-output.txt"
+        fileName = "data/" + outputFileName + ".txt"
         
         with open(fileName, "w", encoding="utf-8") as file:
             # Write the text to the file
