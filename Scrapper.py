@@ -36,3 +36,19 @@ class Scrapper:
         with open(fileName, "w", encoding="utf-8") as file:
             # Write the text to the file
             file.write(text)
+
+    
+    def saveListOfArticleInFile(self, listFileName):
+        with open(listFileName, "r", encoding="utf-8") as file:
+            text = file.read().split("\n")
+        
+        globalOutput = ""
+        for url in text:
+            text = self.getPageTxt(url)
+            if text : globalOutput += text
+
+        fileName = "data/" + listFileName + "-output.txt"
+        
+        with open(fileName, "w", encoding="utf-8") as file:
+            # Write the text to the file
+            file.write(globalOutput)
